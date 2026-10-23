@@ -1,92 +1,88 @@
-\# Gulabi Rides 🚗
+\# Gulabi Rides
 
 
 
-\*\*A smarter way to get from one place to another.\*\*
+A full-stack cab booking application connecting riders, drivers, and administrators through a single platform.
 
 
 
-Gulabi Rides is a full-stack cab booking application built to bring riders, drivers, and administrators together in one place. The goal is simple: make booking a ride straightforward, give drivers the tools they need to manage their work, and provide administrators with a clear view of what's happening across the platform.
+Gulabi Rides is a development project focused on building a reliable ride-booking experience with authentication, ride requests, driver dispatch, real-time communication, and payment integration. It brings together frontend development, backend services, database management, and containerized deployment.
 
 
 
-This project is a hands-on exploration of building a complete ride-booking system — from authentication and ride requests to driver dispatch, real-time updates, and payments.
+\## Features
 
 
 
-\## ✨ What you can do
+\### Rider
+
+\- Account registration and authentication
+
+\- Ride categories and fare estimates
+
+\- Ride booking and status tracking
+
+\- Ride history
+
+\- Payment and receipt functionality
+
+\- Customer support
 
 
 
-\### 🙋 For riders
+\### Driver
 
-\- Create an account and sign in.
+\- Driver registration and authentication
 
-\- Explore available ride categories and fare estimates.
+\- Availability management
 
-\- Request a ride and follow its status.
+\- Ride request notifications
 
-\- View ride history.
-
-\- Access payment and receipt features.
-
-\- Get support when something goes wrong.
+\- Ride acceptance and progress tracking
 
 
 
-\### 🚘 For drivers
+\### Administration
 
-\- Register for the driver experience.
+\- Administrative dashboard
 
-\- Manage driver availability and receive ride requests.
+\- User, driver, and ride management
 
-\- Accept eligible ride requests.
+\- Platform activity and statistics
 
-\- Follow ride progress through the application.
-
-
-
-\### 🛡️ For administrators
-
-\- Access a dedicated administration dashboard.
-
-\- Review platform users, drivers, and rides.
-
-\- Monitor operational activity and platform statistics.
-
-\- Manage supported administrative functions.
+\- Administrative operations
 
 
 
-\### ⚡ Behind the scenes
+\### Platform
 
-\- JWT-based authentication and role-based access control.
+\- JWT-based authentication and role-based access control
 
-\- REST APIs connecting the frontend and backend.
+\- REST API integration
 
-\- WebSocket support for real-time communication.
+\- WebSocket communication
 
-\- PostgreSQL for persistent application data.
+\- PostgreSQL database
 
-\- Redis for caching and supporting application services.
+\- Redis caching
 
-\- Optional Kafka integration for ride-event publishing.
+\- Optional Apache Kafka integration for ride events
 
-\- Docker Compose for running the local development environment.
+\- Docker-based development environment
 
-\- Automated checks through GitHub Actions.
-
-
-
-\*Some capabilities depend on configuration and the current implementation. External services such as payment processing, Google authentication, and mapping APIs require their own credentials.\*
+\- Automated checks using GitHub Actions
 
 
 
-\## 🧰 Built with
+Feature availability may depend on configuration and the current implementation. External integrations require their respective credentials.
 
 
 
-| Area | Technology |
+\## Technology Stack
+
+
+
+| Component | Technology |
 
 |---|---|
 
@@ -100,17 +96,17 @@ This project is a hands-on exploration of building a complete ride-booking syste
 
 | Real-time communication | WebSockets |
 
-| Event publishing | Optional Apache Kafka |
+| Event publishing | Apache Kafka (optional) |
 
-| Infrastructure | Docker, Docker Compose |
+| Containerization | Docker, Docker Compose |
 
 | Testing | JUnit and Spring testing tools |
 
-| CI | GitHub Actions |
+| Continuous integration | GitHub Actions |
 
 
 
-\## 🏗️ How the project is organized
+\## Project Structure
 
 
 
@@ -120,15 +116,15 @@ cab-booking-app/
 
 ├── .github/
 
-│   └── workflows/       # CI workflow
+│   └── workflows/
 
 ├── backend/
 
 │   ├── src/
 
-│   │   ├── main/        # Application code and configuration
+│   │   ├── main/
 
-│   │   └── test/        # Automated tests
+│   │   └── test/
 
 │   ├── Dockerfile
 
@@ -138,17 +134,13 @@ cab-booking-app/
 
 │   ├── src/
 
-│   │   ├── components/  # Rider, driver, admin and other screens
-
-│   │   ├── api.js       # API communication
-
-│   │   └── ws.js        # WebSocket connection
+│   │   └── components/
 
 │   ├── Dockerfile
 
 │   └── package.json
 
-├── prototype/           # Standalone UI prototype
+├── prototype/
 
 ├── docker-compose.yml
 
@@ -160,15 +152,31 @@ cab-booking-app/
 
 
 
-\## 🚀 Run it locally
+\## Getting Started
 
 
 
-The easiest way to start is with Docker Compose.
+\### Prerequisites
 
 
 
-\### 1. Get the code
+Install the following before running the application:
+
+
+
+\- Git
+
+\- Docker Desktop or Docker Engine with Docker Compose
+
+\- A terminal such as PowerShell, Command Prompt, or Bash
+
+
+
+A local Java and Node.js installation may also be useful for running tests and developing outside Docker.
+
+
+
+\### 1. Clone the repository
 
 
 
@@ -182,15 +190,13 @@ cd Gulabi-Rides
 
 
 
-\### 2. Configure the environment
+\### 2. Configure environment variables
 
 
 
-Copy the example environment file:
+On Windows PowerShell:
 
 
-
-\*\*Windows PowerShell\*\*
 
 ```powershell
 
@@ -202,7 +208,9 @@ notepad .env
 
 
 
-\*\*macOS / Linux\*\*
+On macOS or Linux:
+
+
 
 ```bash
 
@@ -212,11 +220,11 @@ cp .env.example .env
 
 
 
-Open `.env` and configure the required values. At minimum, set a strong, randomly generated `JWT\_SECRET`. Review the other settings and configure external services if you intend to use them.
+Configure the required environment variables before starting the application. Generate a strong, unique value for `JWT\_SECRET` and supply credentials for any external services you intend to use.
 
 
 
-Keep your actual `.env` file private. Never commit API keys, passwords, tokens, or other credentials to GitHub.
+Never commit your actual `.env` file or expose passwords, API keys, access tokens, or other sensitive credentials.
 
 
 
@@ -224,7 +232,7 @@ Keep your actual `.env` file private. Never commit API keys, passwords, tokens, 
 
 
 
-Make sure Docker Desktop is running, then execute:
+Ensure Docker is running, then execute the following command from the project root:
 
 
 
@@ -236,7 +244,7 @@ docker compose up -d --build
 
 
 
-Check the container status:
+Check the status of the services:
 
 
 
@@ -248,7 +256,7 @@ docker compose ps
 
 
 
-To inspect application logs:
+View application logs:
 
 
 
@@ -260,7 +268,7 @@ docker compose logs -f
 
 
 
-The exact local URLs and ports depend on the Docker Compose configuration. Check `docker-compose.yml` and the service logs if you need to confirm them.
+Refer to `docker-compose.yml` and the service logs for the configured ports and local application URLs.
 
 
 
@@ -276,43 +284,47 @@ docker compose down
 
 
 
-This stops and removes the Compose containers and network while normally preserving named volumes.
+This stops and removes the Compose containers and network. Named volumes are normally preserved.
 
 
 
-\*\*Avoid `docker compose down -v` unless you deliberately intend to delete the associated volumes and their stored data.\*\*
+Avoid `docker compose down -v` unless you intentionally want to remove the associated volumes and their stored data.
 
 
 
-\## 🔑 Configuration and integrations
+\## Configuration and Integrations
 
 
 
-Gulabi Rides supports configuration for several optional integrations:
+The application supports configuration for the following services:
 
 
 
-\- \*\*Payments:\*\* Stripe API credentials and webhook configuration.
+\- Stripe for payment processing and webhook handling
 
-\- \*\*Google sign-in:\*\* OAuth client configuration.
+\- Google OAuth for authentication
 
-\- \*\*Maps and distance calculations:\*\* Google Maps API key, where required.
+\- Google Maps API for distance calculations
 
-\- \*\*Real-time ride events:\*\* Kafka can be enabled when the corresponding service is started.
+\- Redis for caching
 
-\- \*\*Ride dispatch:\*\* Configurable dispatch radius and request-expiry duration.
-
-
-
-You do not need to configure every external integration just to explore the source code. Some features may remain unavailable until their required credentials and services are configured.
+\- Apache Kafka for optional ride-event publishing
 
 
 
-\## 🧪 Run the tests
+Ride dispatch radius and request expiry can also be configured through environment variables.
 
 
 
-From the project root, run the backend tests with Docker or a local Maven installation, depending on your setup:
+External integrations require valid credentials and appropriate service configuration. Some features may remain unavailable until their dependencies are configured.
+
+
+
+\## Testing
+
+
+
+To run backend tests using a local Maven installation:
 
 
 
@@ -326,25 +338,13 @@ mvn test
 
 
 
-Return to the root directory afterward:
+To inspect the available frontend scripts:
 
 
 
 ```bash
 
-cd ..
-
-```
-
-
-
-For the frontend, install dependencies and run the configured scripts:
-
-
-
-```bash
-
-cd frontend
+cd ../frontend
 
 npm ci
 
@@ -354,81 +354,83 @@ npm run
 
 
 
-The final command lists the available npm scripts defined by the project. Use the relevant script from `frontend/package.json` to start the development server or run any configured checks.
+Use the relevant script defined in `frontend/package.json` to start the development server or execute configured checks.
 
 
 
-\## 🔒 Security notes
+\## Security
 
 
 
-A few things matter when running or extending this project:
+Before deploying the application to a production environment:
 
 
 
-\- Use strong secrets and passwords.
+\- Use strong, unique secrets and passwords.
 
-\- Keep `.env` and private credentials out of version control.
+\- Keep credentials out of source control.
 
-\- Configure production CORS, OAuth redirects, and webhook endpoints appropriately.
+\- Configure CORS and OAuth redirect URLs for the intended environment.
 
-\- Use HTTPS and production-grade secret management when deploying.
+\- Secure payment webhook endpoints.
 
-\- Test authentication and role-based access before exposing the application publicly.
+\- Use HTTPS and appropriate secret management.
 
+\- Verify authentication and role-based access controls.
 
-
-The local development configuration is not automatically suitable for production.
-
-
-
-\## 🛣️ Where the project can go next
+\- Review database access and production configuration.
 
 
 
-There is plenty of room to make the experience better as the application evolves:
+The local development configuration should not be assumed to be production-ready.
 
 
 
-\- Show ride availability based on registered, eligible, online drivers.
-
-\- Match requests to the correct vehicle category.
-
-\- Improve the driver onboarding and vehicle-registration experience.
-
-\- Expand ride tracking and notifications.
-
-\- Strengthen administrative reporting and operational monitoring.
-
-\- Improve automated tests and deployment workflows.
+\## Future Improvements
 
 
 
-These are potential areas for continued development, not a claim that every item is already implemented.
+Potential areas for further development include:
 
 
 
-\## 👨‍💻 About the project
+\- Showing ride availability based on eligible and available drivers
+
+\- Matching ride requests to the correct vehicle category
+
+\- Improving driver onboarding and vehicle registration
+
+\- Expanding ride tracking and notifications
+
+\- Enhancing administrative reporting
+
+\- Increasing automated test coverage
+
+\- Improving deployment and monitoring workflows
 
 
 
-Gulabi Rides is a learning and development project focused on bringing frontend development, backend engineering, databases, authentication, and containerization together in a single application.
+These items represent possible future enhancements and are not necessarily implemented features.
 
 
 
-Building a ride-booking platform involves more than displaying a map and a booking button. It also means thinking about who can access each feature, how rides are assigned, what happens when a driver is unavailable, and how the system behaves when something fails.
+\## About
 
 
 
-That's what makes this project interesting: learning how all those pieces fit together.
+Gulabi Rides is a software development project exploring the engineering behind a cab-booking platform. It brings together frontend interfaces, backend APIs, persistent storage, authentication, real-time communication, and containerization in one application.
 
 
 
-\## 📄 License
+The project provides an opportunity to understand how these components work together to manage users, drivers, ride requests, and the operational requirements of a booking system.
 
 
 
-No license has been specified here. Add a license file if you intend to define how others may use, modify, and distribute the project.
+\## License
+
+
+
+No license has been specified. Add a license file to define the terms under which others may use, modify, or distribute this project.
 
 
 
