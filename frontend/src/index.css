@@ -1,0 +1,12 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+:root { --bg:#f7ece8; --card:#fffaf8; --ink:#1d2350; --mut:#6b6f93; --line:#e7d3cd; --pop:#f2a900; --brand:#1d2350; --onbrand:#fff; --ok:#1f9d6b; --bad:#d6455d; }
+@media (prefers-color-scheme: dark) { :root { --bg:#0e1230; --card:#171c44; --ink:#f3e9ee; --mut:#9aa0cc; --line:#2a3166; --brand:#f2a900; --onbrand:#1a1500; } }
+body { @apply bg-bg font-sans text-ink; margin: 0; }
+h1, h2, h3 { @apply font-display; letter-spacing: -0.02em; }
+.card { @apply rounded-2xl border border-line bg-card p-5; }
+.btn { @apply w-full rounded-xl bg-brand px-4 py-3 font-semibold text-onbrand disabled:opacity-50; }
+.btn-ghost { @apply w-full rounded-xl border border-line px-4 py-3 font-semibold; }
+.input { @apply w-full rounded-lg border border-line bg-bg px-3 py-2.5; }
+.lbl { @apply mb-1 mt-3 block text-sm font-semibold text-mut; }
+.leaflet-container { font-family: inherit; }
+.car { font-size: 26px; line-height: 28px; text-align: center; }

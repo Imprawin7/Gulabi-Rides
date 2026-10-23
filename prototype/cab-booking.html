@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gulabi Rides</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#f7ece8;--card:#fffaf8;--ink:#1d2350;--mut:#6b6f93;--line:#e7d3cd;--acc:#1d2350;--accink:#fff;--pop:#f2a900;--ok:#1f9d6b;--bad:#d6455d;--map:#f1dfd9;--blk:#e5c9c1;--park:#cfe3c8;--water:#bcd6ea;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1230;--card:#171c44;--ink:#f3e9ee;--mut:#9aa0cc;--line:#2a3166;--acc:#f2a900;--accink:#1a1500;--map:#141a3d;--blk:#1d2450;--park:#1c3b3a;--water:#1b3560}}
+:root[data-theme="dark"]{--bg:#0e1230;--card:#171c44;--ink:#f3e9ee;--mut:#9aa0cc;--line:#2a3166;--acc:#f2a900;--accink:#1a1500;--map:#141a3d;--blk:#1d2450;--park:#1c3b3a;--water:#1b3560}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 "Hanken Grotesk",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","Hanken Grotesk",system-ui,sans-serif;margin:0;letter-spacing:-.02em}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;flex-wrap:wrap}
+.brand{font:800 22px "Bricolage Grotesque",sans-serif;letter-spacing:-.03em}.brand i{color:var(--pop);font-style:normal}
+.tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
+.tabs button{border:0;background:none;color:var(--mut);font:600 14px inherit;padding:7px 16px;border-radius:999px;cursor:pointer}
+.tabs button.on{background:var(--acc);color:var(--accink)}
+main{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;padding:20px;max-width:1200px;margin:0 auto}
+@media(max-width:900px){main{grid-template-columns:1fr;padding:14px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+#map svg{display:block;width:100%;aspect-ratio:1;border-radius:14px}
+#map{padding:10px}
+label{display:block;font-weight:600;font-size:13px;color:var(--mut);margin:14px 0 5px}
+select,input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+:focus-visible{outline:2px solid var(--pop);outline-offset:2px}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.type{border:1.5px solid var(--line);border-radius:12px;padding:10px;cursor:pointer;background:var(--bg);text-align:left;color:var(--ink);font:inherit}
+.type.on{border-color:var(--pop);box-shadow:0 0 0 2px var(--pop) inset}
+.type b{display:block}.type small{color:var(--mut)}
+.btn{width:100%;margin-top:16px;padding:14px;border:0;border-radius:12px;background:var(--acc);color:var(--accink);font:700 16px "Hanken Grotesk",sans-serif;cursor:pointer}
+.btn.ghost{background:none;color:var(--ink);border:1.5px solid var(--line);margin-top:8px}
+.btn.bad{background:var(--bad);color:#fff}.btn.ok{background:var(--ok);color:#fff}
+.row{display:flex;justify-content:space-between;gap:10px;padding:5px 0}
+.mut{color:var(--mut)}
+.steps{display:flex;gap:4px;margin:12px 0}.steps span{flex:1;height:5px;border-radius:3px;background:var(--line)}.steps span.on{background:var(--pop)}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:12px;font-weight:600}
+.big{font:800 34px "Bricolage Grotesque",sans-serif;letter-spacing:-.03em}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.stat{background:var(--bg);border-radius:12px;padding:12px}.stat b{display:block;font:800 22px "Bricolage Grotesque",sans-serif}
+.stars button{background:none;border:0;font-size:30px;cursor:pointer;color:var(--line);padding:2px}.stars button.on{color:var(--pop)}
+.log{font:12px/1.6 ui-monospace,Menlo,monospace;max-height:210px;overflow:auto;background:var(--bg);border-radius:10px;padding:10px}
+.log div{white-space:nowrap}.log em{color:var(--pop);font-style:normal}
+.tbl{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--mut);font-weight:600}
+.alert{background:var(--bad);color:#fff;border-radius:12px;padding:12px;margin-bottom:10px;font-weight:600}
+.spin{width:34px;height:34px;border:4px solid var(--line);border-top-color:var(--pop);border-radius:50%;animation:s 1s linear infinite;margin:14px auto}
+@keyframes s{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spin{animation:none}}
+.otp{font:800 28px "Bricolage Grotesque",sans-serif;letter-spacing:.2em}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Gulabi<i>.</i>rides</div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+<main>
+  <section class="card" id="map" aria-label="Live map"></section>
+  <section id="panel"></section>
+</main>
+<script>
+const P={'Hawa Mahal':[60,40],'Jaipur Junction':[35,52],'Airport (JAI)':[22,88],'Amer Fort':[82,12],'Albert Hall':[52,52],'World Trade Park':[40,75],'Jal Mahal':[68,22],'Birla Mandir':[55,66]};
+const T={Mini:{b:40,k:12,e:'4 seats'},Sedan:{b:60,k:16,e:'4 seats'},Prime:{b:90,k:22,e:'Top rated'}};
+const DR=[{n:'Rakesh Meena',c:'Swift Dzire',p:'RJ14 CA 4821',r:4.9},{n:'Imran Khan',c:'Honda Amaze',p:'RJ14 TB 1076',r:4.8},{n:'Suresh Sharma',c:'Hyundai Aura',p:'RJ14 CB 9034',r:4.7}];
+const ME={n:'Arjun Singh (you)',c:'Toyota Etios',p:'RJ14 UA 2210',r:4.9};
+const S={role:'rider',type:'Mini',promo:'',pk:'Jaipur Junction',dp:'Hawa Mahal',ride:null,online:true,earn:0,trips:0,ratings:[5,5,4,5,5,5,4,5,5,5],car:null,rem:0,log:[],sos:[],all:[
+{id:1001,pk:'Albert Hall',dp:'Birla Mandir',fare:118,status:'PAID'},{id:1002,pk:'Amer Fort',dp:'Jal Mahal',fare:141,status:'PAID'},{id:1003,pk:'Airport (JAI)',dp:'Jaipur Junction',fare:284,status:'PAID'}],timers:[],iv:null};
+const $=s=>document.querySelector(s);
+const dist=(a,b)=>(Math.abs(P[a][0]-P[b][0])+Math.abs(P[a][1]-P[b][1]))*.14;
+const path=(a,b)=>[a,[b[0],a[1]],b];
+function at(pts,t){const L=[];let tot=0;for(let i=1;i<pts.length;i++){const l=Math.abs(pts[i][0]-pts[i-1][0])+Math.abs(pts[i][1]-pts[i-1][1]);L.push(l);tot+=l}
+let d=t*tot;for(let i=0;i<L.length;i++){if(d<=L[i]||i==L.length-1){const f=L[i]?Math.min(1,d/L[i]):1;return[pts[i][0]+(pts[i+1][0]-pts[i][0])*f,pts[i][1]+(pts[i+1][1]-pts[i][1])*f]}d-=L[i]}}
+const plen=pts=>pts.slice(1).reduce((s,p,i)=>s+Math.abs(p[0]-pts[i][0])+Math.abs(p[1]-pts[i][1]),0)*.14;
+function fareFor(type,a,b){const km=dist(a,b),base=T[type].b+T[type].k*km,d=S.promo.trim().toUpperCase()==='WELCOME20'?Math.min(base*.2,100):0;return{km:+km.toFixed(1),base:Math.round(base),disc:Math.round(d),total:Math.round(base-d)}}
+const ev=(topic,msg)=>{S.log.unshift({t:new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'}),topic,msg});if(S.log.length>40)S.log.pop()};
+const later=(f,ms)=>S.timers.push(setTimeout(f,ms));
+function anim(pts,ms,done){const t0=Date.now(),len=plen(pts);clearInterval(S.iv);S.iv=setInterval(()=>{const t=Math.min(1,(Date.now()-t0)/ms);S.car=at(pts,t);S.rem=len*(1-t);upCar();if(t>=1){clearInterval(S.iv);done()}},60)}
+function upCar(){const c=$('#car');if(c&&S.car)c.setAttribute('transform','translate('+S.car[0]+' '+S.car[1]+')');const e=$('#eta');if(e)e.textContent=Math.max(1,Math.ceil(S.rem*2))+' min'}
+function book(){const f=fareFor(S.type,S.pk,S.dp);if(S.pk===S.dp)return;
+S.ride={id:1000+S.all.length+1,pk:S.pk,dp:S.dp,type:S.type,...f,status:'REQUESTED',driver:null,paid:false,rated:0};S.all.unshift(S.ride);
+ev('/app/rides.request','ride #'+S.ride.id+' requested, notifying 3 nearby drivers');later(()=>{if(S.ride&&S.ride.status==='REQUESTED')accept(DR[0])},5000);render()}
+function accept(d){const r=S.ride;if(!r||r.status!=='REQUESTED')return;clearTimeout(S.timers[0]);r.driver=d;r.status='ACCEPTED';ev('/topic/ride/'+r.id,d.n+' accepted');render();
+later(()=>{r.status='ARRIVING';const p=P[r.pk],st=[Math.min(95,p[0]+18),Math.max(5,p[1]-14)];S.car=st;ev('/topic/ride/'+r.id,'driver on the way');render();
+anim(path(st,p),6000,()=>{r.status='ARRIVED';r.otp=String(1000+Math.floor(Math.random()*9000));ev('/topic/ride/'+r.id,'driver arrived, OTP issued');render();
+later(()=>{r.status='IN_TRIP';ev('/topic/ride/'+r.id,'trip started');render();anim(path(p,P[r.dp]),8000,()=>{r.status='COMPLETED';ev('/topic/ride/'+r.id,'trip completed, fare ₹'+r.total);render()})},2200)})},900)}
+function decline(){const r=S.ride;if(!r)return;ev('/app/rides.decline','you declined #'+r.id+', re-dispatching');clearTimeout(S.timers[0]);later(()=>accept(DR[1]),2000);S.declined=r.id;render()}
+function pay(){const r=S.ride;r.paid=true;r.status='PAID';S.earn+=Math.round(r.total*.8);S.trips++;ev('stripe','payment_intent.succeeded for #'+r.id);ev('/webhook/stripe','verified, receipt generated');render()}
+function rate(n){S.ride.rated=n;S.ratings.push(n);ev('/app/ratings','ride #'+S.ride.id+' rated '+n+'/5');render()}
+function sos(){S.sos.unshift('SOS from ride #'+S.ride.id+' near '+S.ride.pk);ev('/topic/sos','broadcast to admin console');render()}
+function reset(){S.timers.forEach(clearTimeout);S.timers=[];clearInterval(S.iv);if(S.ride&&S.ride.status==='REQUESTED')S.all.shift();S.ride=null;S.car=null;render()}
+const avg=()=>(S.ratings.reduce((a,b)=>a+b,0)/S.ratings.length).toFixed(2);
+const inr=n=>'₹'+n.toLocaleString('en-IN');
+const STEP={REQUESTED:0,ACCEPTED:1,ARRIVING:2,ARRIVED:2,IN_TRIP:3,COMPLETED:4,PAID:5};
+const LABEL={REQUESTED:'Finding a driver',ACCEPTED:'Driver accepted',ARRIVING:'Driver is on the way',ARRIVED:'Driver has arrived',IN_TRIP:'Trip in progress',COMPLETED:'Trip completed',PAID:'Paid'};
+function mapHTML(){let s='<svg viewBox="0 0 100 100" role="img" aria-label="City map"><rect width="100" height="100" fill="var(--map)"/>';
+for(let i=0;i<10;i++)for(let j=0;j<10;j++)s+='<rect x="'+(i*10+1.3)+'" y="'+(j*10+1.3)+'" width="7.4" height="7.4" rx="1.2" fill="'+((i*7+j*3)%5==0?'var(--park)':'var(--blk)')+'"/>';
+s+='<path d="M0 30 C25 38 45 20 70 34 S95 60 100 58" fill="none" stroke="var(--water)" stroke-width="2.4" opacity=".8"/>';
+const r=S.ride,a=r?r.pk:S.pk,b=r?r.dp:S.dp;
+if(a!==b)s+='<polyline points="'+path(P[a],P[b]).map(p=>p.join(',')).join(' ')+'" fill="none" stroke="var(--pop)" stroke-width=".9" stroke-dasharray="2 1.4" stroke-linecap="round"/>';
+for(const k in P){const p=P[k];s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r=".9" fill="var(--mut)"/><text x="'+p[0]+'" y="'+(p[1]-2)+'" font-size="2.4" text-anchor="middle" fill="var(--ink)" stroke="var(--map)" stroke-width=".7" paint-order="stroke">'+k+'</text>'}
+s+='<circle cx="'+P[a][0]+'" cy="'+P[a][1]+'" r="2.1" fill="var(--ok)" stroke="#fff" stroke-width=".6"/><circle cx="'+P[b][0]+'" cy="'+P[b][1]+'" r="2.1" fill="var(--bad)" stroke="#fff" stroke-width=".6"/>';
+if(S.car)s+='<g id="car" transform="translate('+S.car[0]+' '+S.car[1]+')"><circle r="3" fill="var(--pop)" stroke="var(--ink)" stroke-width=".5"/><text font-size="3.6" text-anchor="middle" dy="1.2">🚖</text></g>';
+return s+'</svg>'}
+function riderHTML(){const r=S.ride;
+if(!r){const f=fareFor(S.type,S.pk,S.dp),o=x=>Object.keys(P).map(k=>'<option'+(k===x?' selected':'')+'>'+k+'</option>').join('');
+return '<div class="card"><h2>Where to?</h2><label for="pk">Pickup</label><select id="pk" onchange="S.pk=this.value;render()">'+o(S.pk)+'</select><label for="dp">Drop-off</label><select id="dp" onchange="S.dp=this.value;render()">'+o(S.dp)+'</select><label>Ride type</label><div class="types">'+Object.keys(T).map(k=>{const q=fareFor(k,S.pk,S.dp);return '<button class="type'+(k===S.type?' on':'')+'" onclick="S.type=\''+k+'\';render()"><b>'+k+'</b><small>'+T[k].e+'</small><div>'+inr(q.total)+'</div></button>'}).join('')+'</div><label for="promo">Promo code</label><input id="promo" placeholder="Try WELCOME20" value="'+S.promo+'" onchange="S.promo=this.value;render()"><div class="row" style="margin-top:12px"><span class="mut">Distance</span><span>'+f.km+' km</span></div>'+(f.disc?'<div class="row"><span class="mut">Promo discount</span><span>−'+inr(f.disc)+'</span></div>':'')+'<button class="btn" onclick="book()"'+(S.pk===S.dp?' disabled':'')+'>'+(S.pk===S.dp?'Choose different places':'Book '+S.type+' for '+inr(f.total))+'</button></div>'}
+const st=STEP[r.status],steps='<div class="steps">'+[0,1,2,3,4,5].map(i=>'<span class="'+(i<=st?'on':'')+'"></span>').join('')+'</div>';
+let h='<div class="card"><span class="pill">Ride #'+r.id+'</span><h2 style="margin-top:8px">'+LABEL[r.status]+'</h2>'+steps;
+if(r.status==='REQUESTED')h+='<div class="spin"></div><p class="mut" style="text-align:center">Notifying nearby drivers…</p><button class="btn ghost" onclick="reset()">Cancel request</button>';
+else{if(r.driver)h+='<div class="row"><div><b>'+r.driver.n+'</b><div class="mut">'+r.driver.c+' · '+r.driver.p+'</div></div><span class="pill">★ '+r.driver.r+'</span></div>';
+if(r.status==='ARRIVING'||r.status==='IN_TRIP')h+='<div class="row"><span class="mut">'+(r.status==='IN_TRIP'?'Arriving at '+r.dp:'Pickup ETA')+'</span><b id="eta"></b></div>';
+if(r.status==='ARRIVED')h+='<div style="text-align:center;margin:10px 0"><div class="mut">Share this code with your driver</div><div class="otp">'+r.otp+'</div></div>';
+if(r.status==='ARRIVING'||r.status==='ARRIVED'||r.status==='IN_TRIP')h+='<button class="btn bad" onclick="sos()">Send SOS alert</button>';
+if(r.status==='COMPLETED')h+='<div class="row"><span class="mut">Fare</span><span class="big">'+inr(r.total)+'</span></div><button class="btn" onclick="pay()">Pay '+inr(r.total)+' with card</button><p class="mut" style="font-size:12px">Simulated Stripe payment. In production a PaymentIntent is created by the Spring Boot API.</p>';
+if(r.status==='PAID')h+='<div class="stat" style="margin-top:10px"><div class="row"><span>Receipt #'+r.id+'</span><b>'+inr(r.total)+'</b></div><div class="row mut"><span>'+r.pk+' to '+r.dp+'</span><span>'+r.km+' km</span></div>'+(r.disc?'<div class="row mut"><span>Promo applied</span><span>−'+inr(r.disc)+'</span></div>':'')+'</div><div style="text-align:center;margin-top:12px"><div class="mut">Rate '+r.driver.n.split(' ')[0]+'</div><div class="stars">'+[1,2,3,4,5].map(n=>'<button class="'+(n<=r.rated?'on':'')+'" aria-label="'+n+' stars" onclick="rate('+n+')">★</button>').join('')+'</div></div><button class="btn" onclick="reset()">Book another ride</button>'}
+return h+'</div>'}
+function driverHTML(){const r=S.ride,req=r&&r.status==='REQUESTED'&&S.online;
+let h='<div class="card"><div class="row"><h2>Driver dashboard</h2><button class="pill" style="cursor:pointer;color:var(--ink)" onclick="S.online=!S.online;render()">'+(S.online?'● Online':'○ Offline')+'</button></div><div class="stats"><div class="stat">Earnings<b>'+inr(S.earn)+'</b></div><div class="stat">Trips<b>'+S.trips+'</b></div><div class="stat">Rating<b>★ '+avg()+'</b></div><div class="stat">Acceptance<b>96%</b></div></div>';
+if(req)h+='<div class="card" style="border-color:var(--pop)"><b>New ride request</b><div class="row"><span>'+r.pk+' to '+r.dp+'</span><b>'+inr(r.total)+'</b></div><div class="mut">'+r.km+' km · '+r.type+'</div><button class="btn ok" onclick="accept(ME)">Accept ride</button><button class="btn ghost" onclick="decline()">Decline</button></div>';
+else h+='<p class="mut">'+(S.online?'No requests yet. Switch to Rider and book a ride to see it here.':'Go online to receive ride requests.')+'</p>';
+if(r&&!req&&r.driver)h+='<p><b>Active:</b> ride #'+r.id+' with '+r.driver.n+' ('+LABEL[r.status].toLowerCase()+')</p>';
+return h+'</div>'}
+function adminHTML(){const act=S.all.filter(x=>!['PAID','COMPLETED'].includes(x.status)).length,rev=S.all.filter(x=>x.status==='PAID').reduce((s,x)=>s+x.fare||s+x.total,0);
+return '<div class="card"><h2>Admin console</h2>'+S.sos.map(x=>'<div class="alert" style="margin-top:12px">'+x+'</div>').join('')+'<div class="stats"><div class="stat">Active rides<b>'+act+'</b></div><div class="stat">Drivers online<b>'+(S.online?4:3)+'</b></div><div class="stat">Revenue today<b>'+inr(S.all.filter(x=>x.status==='PAID').reduce((s,x)=>s+(x.total||x.fare),0))+'</b></div><div class="stat">Rides today<b>'+S.all.length+'</b></div></div><h3>Live events</h3><div class="log" style="margin:8px 0 14px">'+(S.log.map(l=>'<div>'+l.t+' <em>'+l.topic+'</em> '+l.msg+'</div>').join('')||'<div>Waiting for ride activity…</div>')+'</div><h3>Rides</h3><div class="tbl"><table><tr><th>ID</th><th>Route</th><th>Fare</th><th>Status</th></tr>'+S.all.slice(0,8).map(x=>'<tr><td>#'+x.id+'</td><td>'+x.pk+' → '+x.dp+'</td><td>'+inr(x.total||x.fare)+'</td><td>'+x.status+'</td></tr>').join('')+'</table></div></div>'}
+function render(){$('#tabs').innerHTML=['rider','driver','admin'].map(k=>'<button class="'+(S.role===k?'on':'')+'" onclick="S.role=\''+k+'\';render()">'+k[0].toUpperCase()+k.slice(1)+'</button>').join('');
+$('#map').innerHTML=mapHTML();$('#panel').innerHTML=S.role==='rider'?riderHTML():S.role==='driver'?driverHTML():adminHTML();upCar()}
+render();
+</script>
+</body>
+</html>
